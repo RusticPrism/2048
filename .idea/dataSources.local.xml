@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal" created-in="PS-232.10227.13">
+    <data-source name="2028@localhost" uuid="b8a506ad-ae3d-43c6-aba1-339449419e4a">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MARIADB" exact-version="0" />
+      <secret-storage>session</secret-storage>
+      <user-name>username</user-name>
+      <schema-mapping />
+    </data-source>
+  </component>
+</project>
