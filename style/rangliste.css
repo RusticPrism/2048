@@ -1,0 +1,47 @@
+@import "main.css";
+#overlay\ prompt {
+    visibility: hidden;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width:100%;
+    text-align:center;
+    z-index: 1000;
+}
+#overlay\ prompt div {
+    width:19em;
+    margin: 100px auto;
+    background-color: #eee4da;
+    padding:5px;
+    text-align:center;
+    border-radius: 3px;
+}
+.username {
+    background-color: rgba(119, 110, 101, 0.45);
+    border: 0 solid;
+    outline: none;
+    border-radius: 3px;
+}
+.username:focus {
+    outline: none;
+}
+.form-button:focus {
+    border: 1px solid black;
+}
+.form-button {
+    background-color: rgba(119, 110, 101, 0.45);
+    border: 0 solid;
+    outline: none;
+    border-radius: 3px;
+    color: white;
+    font-weight: bold;
+}
+#alert-error {
+    background-color: #eee4da;
+    color: red;
+    width:19em;
+    margin: 100px auto;
+    align-content: center;
+    text-align: center;
+    border-radius: 3px;
+}

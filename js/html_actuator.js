@@ -125,6 +125,9 @@ HTMLActuator.prototype.updateBestScore = function (bestScore) {
 };
 
 HTMLActuator.prototype.message = function (won) {
+  document.getElementById("overlay prompt").style.visibility = "visible";
+  document.getElementById("end-score").textContent = this.score;
+  document.getElementById("score-value").value = this.score;
   var type    = won ? "game-won" : "game-over";
   var message = won ? "You win!" : "Game over!";
 
