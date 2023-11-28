@@ -10,24 +10,31 @@ function isInTable($userid): bool
     $userid = mysqli_real_escape_string($conn, $userid);
     $result = mysqli_query($conn, "SELECT * FROM $dbname WHERE username = '$userid'");
     if($result && mysqli_num_rows($result) > 0) {
-            echo "Found";
             return true;
         }else {
-        echo "Not Found";
         return false;
     }
 }
+function isBetter($userid, $score): bool
+{
+    global $conn, $dbname;
+    $userid = mysqli_real_escape_string($conn, $userid);
+    $result = mysqli_query($conn, "SELECT score FROM $dbname WHERE username = '$userid'");
+    $result = mysqli_fetch_assoc($result);
+    if($score > $result['score']) {
+        return true;
+    }else return false;
+}
 if (isset($_POST['submitprompt'])) {
     if (!isset($_POST["username"])) {
-        echo "Empty Username";
+        echo "<p id='alert-error'>Empty Username</p>";
         return;
     }
     if (!isset($_POST["score"])) {
-        echo $_POST["score"];
         return;
     }
     if ($_POST["score"] === 0) {
-        echo "Score cannot be 0";
+        echo "<p id='alert-error'>Score cannot be 0</p>";
         return;
     }
     $user = $_POST["username"];
@@ -37,17 +44,16 @@ if (isset($_POST['submitprompt'])) {
 // Check connection
     if ($conn->connect_error) {
         echo "<p id='alert-error'>Connection failed: " . $conn->connect_error . "</p";
+        return;
     }
     if (isInTable($user)) {
-        if ($conn->query("UPDATE Game2048 SET score = '$score' WHERE username = '$user'") === TRUE) {
-            echo "<p id='alert-error'>UPDATE</p>";
-        } else {
+        if(!isBetter($user, $score)) {
+            echo "<p id='alert-error'>Dein Score ist nicht besser als dein eingetragener!</p>";
+        }else if ($conn->query("UPDATE Game2048 SET score = '$score' WHERE username = '$user'") === FALSE) {
             echo "<p id='alert-error'>Error on update: <br>" . $conn->error . "</p";
         }
     }else {
-        if ($conn->query("INSERT INTO Game2048 (username, score) VALUES ('$user', '$score')") === TRUE) {
-            echo "<p id='alert-error'>INSERT</p>";
-        } else {
+        if ($conn->query("INSERT INTO Game2048 (username, score) VALUES ('$user', '$score')") === FALSE) {
             echo "<p id='alert-error'>Error on create: <br>" . $conn->error . "</p";
         }
     }
@@ -84,13 +90,25 @@ if (isset($_POST['submitprompt'])) {
             <p><strong>Dein Ergebnis beim Game 2048:</strong></p>
             Punkte: <span id="end-score">0</span>
             <br>
-            Nickname eingeben für Rangliste:<br/>
+            <label>Nickname eingeben für Rangliste:</label>
             <input class="username" name="username" type="text" maxlength="15" style="width: 10em"/><br>
             <input name="score" id="score-value" type="hidden" value="0">
             <input class="form-button" name="submitprompt" type="submit" value="JA" style="width: 62px"/>
             <input class="form-button" name="Button2" type="button" value="NEIN" onclick=promptclose() style="width: 62px"/>
         </form>
     </div>
+</div>
+<div class="bestenliste">
+    <table>
+        <tr>
+            <th>Username</th>
+            <th>Score</th>
+        </tr>
+        <tr>
+            <th>Username1</th>
+            <th>Score1</th>
+        </tr>
+    </table>
 </div>
 <div class="container">
     <div class="heading">
@@ -175,6 +193,6 @@ if (isset($_POST['submitprompt'])) {
 <script src="js/local_storage_manager.js"></script>
 <script src="js/game_manager.js"></script>
 <script src="js/application.js"></script>
-<script src="js/Rangliste.js"></script>
+<script src="js/rangliste.js"></script>
 </body>
 </html>
