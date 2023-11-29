@@ -1,7 +1,7 @@
 <?php
-$servername = "88.198.49.38";
-$username = "rustic";
-$password = "#V2DXsNasYf879mQMEiE&j9Yefh3!A";
+$servername = "localhost";
+$username = "username";
+$password = "password";
 $dbname = "Game2048";
 $conn = new mysqli($servername, $username, $password, $dbname);
 function isInTable($userid): bool
